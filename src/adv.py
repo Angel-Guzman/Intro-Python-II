@@ -33,33 +33,57 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
 #
 # Main
 #
-
-# Make a new player object that is currently in the 'outside' room.
-player = Player('Tom', 'outside')
-# Write a loop that:
-#
-while True:
-    # * Prints the current room name
-
-    player.print_room()
-
-    # * Prints the current description (the textwrap module might be useful here).
-    # * Waits for user input and decides what to do.
+def main():
+    # Make a new player object that is currently in the 'outside' room.
+    player = Player(input("\nEnter your name\n"), room['outside'])
+    # Write a loop that:
     #
-    movement = input("You can move North, South, East, or West")
-# If the user enters a cardinal direction, attempt to move to the room there.
 
-# if 'n'
+    while True:
+        # * Prints the current room name
 
-# if 's'
+        print(player.current_room)
 
-# if 'e'
+        # * Prints the current description (the textwrap module might be useful here).
 
-# if 'w'
+        # * Waits for user input and decides what to do.
+        #
+        movement = input("type n, s, e, w to move or q to quit\n")
+        # If the user enters a cardinal direction, attempt to move to the room there.
+        if movement == 'n':
+            if player.current_room.n_to != None:
+                print(f"\nYou moved North\n")
+                player.current_room = player.current_room.n_to
+            else:
+                print("nope\n")
+        elif movement == 's':
+            if player.current_room.s_to != None:
+                print(f"\nYou moved South\n")
+                player.current_room = player.current_room.s_to
+            else:
+                print("nah\n")
+        elif movement == 'e':
+            if player.current_room.e_to != None:
+                print(f"\nYou moved East\n")
+                player.current_room = player.current_room.e_to
+            else:
+                print("no way\n")
+        elif movement == 'w':
+            if player.current_room.w_to != None:
+                print(f"\nYou moved West\n")
+                player.current_room = player.current_room.w_to
+            else:
+                print("impossible\n")
 
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+        # Print an error message if the movement isn't allowed.
+        #
+        # If the user enters "q", quit the game.
+        if movement == 'q':
+            break
+
+
+main()
